@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import WalkAbility from './Views/WalkAbility';
 import WomansRights from './Views/WomansRights';
 import LGBTRights from './Views/LGBTRights';
+import ResumeHelper from './Views/ResumeHelper';
 
 function App() {
   // State to hold the input value
@@ -78,10 +79,14 @@ function App() {
       </div>
 
       {dataFetched && (
+        <div>
         <div className="Features">
           <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} walk_description={walk_description} transit_description={transit_description} transit_summary={transit_summary} bike_description={bike_description}/>
           <WomansRights abortion_policy={abortion_policy} employment_discrimination={employment_discrimination}/>
           <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/>
+        </div>
+
+        <ResumeHelper jobLink = {inputValue}/>
         </div>
       )}
     </div>

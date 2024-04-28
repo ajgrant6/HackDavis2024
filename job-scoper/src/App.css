@@ -63,3 +63,80 @@
   color: rgb(65, 65, 65);
   flex-direction: column;
 }
+
+.ResumeHelper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+  line-height: 16px;
+}
+
+.ResumeHelperArea{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+}
+
+.JobDescription{
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 300px;
+  text-align: left;
+}
+
+.Italics{
+  font-style: italic;
+}
+
+.ResumeHelperHeading{
+  margin-top: 60px;
+  text-align: center;
+  font-size: calc(10px + 1.5vmin);
+  line-height: 3px;
+}
+
+.ResumeUpload{
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 130px;
+}
+
+.HelperArea {
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 100px;
+  text-align: left;
+}
+
+.ResumeComponent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
