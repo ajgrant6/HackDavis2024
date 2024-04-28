@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload</title>
+</head>
+<script src="{{ url_for('static', filename='resumetest.js') }}"></script>
+
+<body>
+
+
+
+
+    <h1>Resume Checker</h1>
+	<input type="text" id="queryInput" placeholder="Job Link">
+	<button type="button" onclick="fetchInfo()">Check your resume</button>
+
+
+
+    <h1>Upload Your Resume</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" accept=".pdf">
+        <button type="button" onclick="uploadPdf()">Upload</button>
+    </form>
+
+
+
+</body>
+</html>
