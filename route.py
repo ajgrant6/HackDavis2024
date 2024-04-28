@@ -3,13 +3,15 @@ from functions.scrapers.locationScraper import *
 from functions.lgbtPolicy import *
 import requests
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 import os
+import json
 
 load_dotenv()
 
 googleAPI = os.getenv("GOOGLEAPI")
 walkscoreAPI = os.getenv("WALKSCOREAPI")
-
+equalDexAPI = os.getenv("EQUALDEXAPI")
 #from flask_login import current_user, login_required
 
 @app.route("/", methods=["GET"])
@@ -39,7 +41,52 @@ def api_get_location():
 				return jsonify({'error': 'Location not found'}), 404
 			
 			state_id = location.split(',')[-1].strip()[:2]
-			print(state_id)
+
+
+			url = "https://www.equaldex.com/api/region"
+			querystring = {"regionid": "us-" + state_id, "formatted": "false", "apiKey": equalDexAPI}
+			headers = {"Accept": "application/json"}
+
+			response = requests.get(url, headers=headers, params=querystring)
+
+			# Check if the request was successful
+			if response.status_code == 200:
+				# Parse the response text using BeautifulSoup
+				soup = BeautifulSoup(response.text, 'html.parser')
+
+				# Extract the content within <pre> tags
+				pre_content = soup.find('pre').text
+
+				# Parse the content as JSON
+				state_data = json.loads(pre_content)
+
+
+				ei_value = state_data['regions']['region']['ei']
+				pei_value = state_data['regions']['region']['ei_legal']
+				oei_value = state_data['regions']['region']['ei_po']
+				employment_descrimination = state_data['regions']['region']['issues']['employment-discrimination']['current_status']['description']
+				housing_description = state_data['regions']['region']['issues']['housing-discrimination']['current_status']['description']
+				transrights_legality = state_data['regions']['region']['issues']['changing-gender']['current_status']['value']
+				genderafirm_legality = state_data['regions']['region']['issues']['gender-affirming-care']['current_status']['value']
+
+
+				print("EI:", ei_value)
+				print("PEI:", pei_value)
+				print("OEI:", oei_value)
+				print("Employment Discrimination:", employment_descrimination)
+				print("Housing Discrimination:", housing_description)
+				print("Transgender Rights:", transrights_legality)
+				print("Gender Affirming Care:", genderafirm_legality)
+
+
+			else:
+				print("Error:", response.status_code)
+
+
+
+
+
+
 			lgbt_policy = lgbtPolicy(state_id)
 			# Replace 'LOCATION' with the location obtained from the API call
 			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
@@ -68,7 +115,7 @@ def api_get_location():
 				transit_score = walkscore_data['transit']['score']
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score})
+			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "pei_value": pei_value, "oei_value": oei_value, "employment_descrimination": employment_descrimination, "housing_descrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
