@@ -70,7 +70,7 @@ const ResumeHelper = (props) => {
     };
 
     return (
-        <div className="ResumeHelper">
+        <div className="ResumeHelper" style={{ margin: "0 auto", textAlign: "center" }}>
             <div className='ResumeHelperHeading'>
                 <h1>Resume Helper</h1>
                 <p>Let's see if you're a good fit!</p>
