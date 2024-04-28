@@ -4,6 +4,11 @@ import requests
 from dotenv import load_dotenv
 import os
 
+from flask_cors import CORS, cross_origin
+# Apply CORS to whole app or just one route
+# NEEDED FOR REACT TO WORK
+CORS(app)
+
 load_dotenv()
 
 googleAPI = os.getenv("GOOGLEAPI")

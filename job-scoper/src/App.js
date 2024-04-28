@@ -7,29 +7,34 @@ function App() {
   // State to hold the input value
   const [inputValue, setInputValue] = useState('');
 
-  // State to hold API response data (if needed)
-  const [apiResponse, setApiResponse] = useState(null);
+  // States for walk score, transit score, and bike score
+  const [walkScore, setWalkScore] = useState(0);
+  const [transitScore, setTransitScore] = useState(0);
+  const [bikeScore, setBikeScore] = useState(0);
 
   // Function to handle input changes
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Function to handle API request
   const handleSearch = async () => {
     try {
-      const response = await fetch(`YOUR_API_ENDPOINT?query=${encodeURIComponent(inputValue)}`, {
-        method: 'GET', // or 'POST', depending on your API
+      const url = `http://localhost:8080/api/getInfo`;
+      const response = await fetch(url, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Additional headers
-        }
+        },
+        body: JSON.stringify({ link: inputValue }) // Ensure this matches the key expected by your Flask app
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`HTTP status ${response.status}: Network response was not ok`);
       }
       const data = await response.json();
-      setApiResponse(data);
+      // Update state with the data from the response
+      setWalkScore(data.walkscore);
+      setTransitScore(data.transit_score);
+      setBikeScore(data.bike_score);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -49,7 +54,8 @@ function App() {
       </div>
 
       <div className="Features">
-        <WalkAbility walkScore={100} transitScore={100} bikeScore={100} />
+        {/* Updated component to use state values */}
+        <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} />
         <Rights abortion_access="Legal" lgbt_friendliness="Accepting" />
       </div>
     </div>
