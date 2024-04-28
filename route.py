@@ -1,5 +1,6 @@
 from app import *
-from locationScraper import *
+from functions.scrapers.locationScraper import *
+from functions.lgbtPolicy import *
 import requests
 from dotenv import load_dotenv
 import os
@@ -39,6 +40,7 @@ def api_get_location():
 			
 			state_id = location.split(',')[-1].strip()[:2]
 			print(state_id)
+			lgbt_policy = lgbtPolicy(state_id)
 			# Replace 'LOCATION' with the location obtained from the API call
 			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
 
@@ -66,7 +68,7 @@ def api_get_location():
 				transit_score = walkscore_data['transit']['score']
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'location': location, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score})
+			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
