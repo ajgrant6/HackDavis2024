@@ -9,7 +9,7 @@ function App() {
   // State to hold the input value
   const [inputValue, setInputValue] = useState('');
   const [dataFetched, setDataFetched] = useState(false);
-
+  const [loading, setLoading] = useState(false); // State to track loading status
 
   // States for walk score, transit score, and bike score
   const [walkScore, setWalkScore] = useState(0);
@@ -32,6 +32,7 @@ function App() {
   };
 
   const handleSearch = async () => {
+    setLoading(true); // Set loading to true when button is pressed
     try {
       const url = `http://localhost:8080/api/getInfo`;
       const response = await fetch(url, {
@@ -62,6 +63,8 @@ function App() {
       setDataFetched(true);  // Set data fetched to true
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+    } finally {
+      setLoading(false); // Set loading to false when data fetching is complete
     }
   };
 
@@ -72,21 +75,24 @@ function App() {
         <p>Find the best city for you to live and work in</p>
         <div className="SearchField">
           <input type="text" size="40" placeholder="Place a LinkedIn or Indeed Job Posting Here"
-                 value={inputValue} onChange={handleInputChange} />
+                 value={inputValue} onChange={handleInputChange} onKeyPress={(event) => event.key === 'Enter' && handleSearch()} style={{borderRadius: '5px', fontSize: '18px', paddingRight: '5px'}} />
           <div className="Spacer"/>
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch} style={{borderRadius: '5px', fontSize: '18px', padding: '2px 5px'}}>Search</button>
         </div>
       </div>
 
-      {dataFetched && (
-        <div>
-        <div className="Features">
-          <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} walk_description={walk_description} transit_description={transit_description} transit_summary={transit_summary} bike_description={bike_description}/>
-          <WomansRights abortion_policy={abortion_policy} employment_discrimination={employment_discrimination}/>
-          <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/>
-        </div>
+      {/* Show loading message while loading */}
+      {loading && <img src={require('./loading.gif')} alt="Loading..." />}
 
-        <ResumeHelper jobLink = {inputValue}/>
+      {dataFetched && !loading && (
+        <div>
+          <div className="Features">
+            <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} walk_description={walk_description} transit_description={transit_description} transit_summary={transit_summary} bike_description={bike_description}/>
+            <WomansRights abortion_policy={abortion_policy} employment_discrimination={employment_discrimination}/>
+            <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/>
+          </div>
+
+          <ResumeHelper jobLink = {inputValue}/>
         </div>
       )}
     </div>

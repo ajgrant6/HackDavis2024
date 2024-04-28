@@ -6,6 +6,7 @@ const ResumeHelper = (props) => {
     const [pdfAsText, setPdfAsText] = useState('');
     const [jobDescription, setJobDescription] = useState('');
     const [comparisonResult, setComparisonResult] = useState('');
+    const [loading, setLoading] = useState(false); // Add loading state
 
     useEffect(() => {
         fetchJobDescription(props.jobLink);
@@ -25,7 +26,7 @@ const ResumeHelper = (props) => {
     };
 
     const handleFileUpload = async (event) => {
-        const file = event.target.files[0]; // Get the file from the input
+        const file = event.target.files[0];
         if (!file) return;
 
         const formData = new FormData();
@@ -49,6 +50,7 @@ const ResumeHelper = (props) => {
     };
 
     const compareResumes = async () => {
+        setLoading(true); // Set loading to true when the button is clicked
         try {
             const response = await axios.post('http://localhost:8080/api/compareResume', {
                 resume_text: pdfAsText,
@@ -62,6 +64,8 @@ const ResumeHelper = (props) => {
             }
         } catch (error) {
             console.error('Error comparing resumes:', error);
+        } finally {
+            setLoading(false); // Set loading back to false after comparison
         }
     };
 
@@ -74,29 +78,46 @@ const ResumeHelper = (props) => {
             </div>
             <div className="ResumeUpload">
                 <h2>Upload Resume</h2>
-                <input type="file" id="resume" name="resume" accept=".pdf" onChange={handleFileUpload}/>
+                <input type="file" id="resume" name="resume" accept=".pdf" onChange={handleFileUpload}  />
+                
             </div>
             <div className="ResumeHelperArea">
-                <div style={{ flexDirection: 'column' }}>
+                <div style={{ flexDirection: 'row' }}>
+                    <div className="ResumeComponent">
+                        <div className="JobDescription">
+                            <h2 style={{ textAlign: "center" }}>AI Analysis</h2>
+                            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                                <button onClick={compareResumes} style={{borderRadius: '5px', fontSize: '18px', padding: '2px 5px'}}>Generate Analysis</button>
+                            </div>
+                            <div className='JobDescriptionText' style={{ padding: "10px", fontSize: "1.2em" }}>
+                                {loading ? (
+                                    <div style={{ display: "flex", justifyContent: "center" }}>
+                                        <img src={require('../loading.gif')} alt="Loading..." style={{ width: "75%", margin: "0 auto" }} />
+                                    </div>
+                                ) : (
+                                    <div dangerouslySetInnerHTML={{ __html: comparisonResult || "Upload your resume and click 'Generate Analysis' to see how you match up!" }} />
+                                )}
+                            </div>
+                            <div className="Spacer"/>
+                        </div>
+                    </div>
+                    <div className="Spacer"/>
                     <div className='JobDescription'>
-                        <h2 style = {{textAlign: "center"}}>Job Description</h2>
-                        {jobDescription || "JOB DESCRIPTION GOES HERE"}
+                        <h2 style={{ textAlign: "center" }}>Job Description</h2>
+                        {jobDescription ? (
+                            <p className='JobDescriptionText' style={{ fontSize: "1.2em" }}>{jobDescription}</p>
+                        ) : (
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <img src={require('../loading.gif')} alt="Loading..." style={{ width: "50%", margin: "0 auto" }} />
+                            </div>
+                        )}
+                        <div className="Spacer"/>
                     </div>
                     <div className="Spacer"/>
                 </div>
-                <div className="ResumeComponent">
-                    <div className="HelperArea">
-                        <h2 style = {{textAlign: "center"}}>AI Analysis</h2>
-                        <div style = {{textAlign: "center", marginBottom: "20px"}}>
-                            <button onClick={compareResumes}>Generate Analysis</button>
-                        </div>
-                        <div dangerouslySetInnerHTML={{ __html: comparisonResult || "Upload your resume and click 'Generate Analysis' to see how you match up!" }}/>
-                    </div>
-                </div>
-                <div className="Spacer"/>
             </div>
         </div>
-    );    
+    );
 }
 
 export default ResumeHelper;

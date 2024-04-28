@@ -124,9 +124,14 @@ def api_get_location():
 				walk_description = walkscore_data['description']
 				bike_description = walkscore_data['bike']['description']
 				bike_score = walkscore_data['bike']['score']
-				transit_description = walkscore_data['transit']['description']
-				transit_summary = walkscore_data['transit']['summary']
-				transit_score = walkscore_data['transit']['score']
+				try:
+					transit_description = walkscore_data['transit']['description']
+					transit_summary = walkscore_data['transit']['summary']
+					transit_score = walkscore_data['transit']['score']
+				except KeyError:
+					transit_description = "No Transit"
+					transit_summary = "No public transit routes available nearby"
+					transit_score = 0
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
 			return jsonify({'abortion_policy': abortion_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})

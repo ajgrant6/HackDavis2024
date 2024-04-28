@@ -7,12 +7,12 @@ const WomansRights = (props) => {
     return (
         <div className='FeatureComponent' style={{ textAlign: 'left' }}>
             <h2>Women's Rights</h2>
-            <div className='FeatureComponentLine' style={{ lineHeight: '16px'}}>
-                <p>{employment_discrimination}</p>
+            <div className='FeatureComponentLine' style={{ marginBottom: '0px' }}>
+                <p >{employment_discrimination}</p>
             </div>
-            <div className='FeatureComponentLine'>
-                <p>Abortion Access:</p>
-                <p>{abortion_policy}</p>
+            <div className='FeatureComponentLine'  style={{ marginTop: '0px' }}>
+                <p className='ZeroPaddingMargin'>Abortion Access:</p>
+                <p className='ZeroPaddingMargin'>{abortion_policy}</p>
             </div>
             <div className='Spacer'/>
         </div>
