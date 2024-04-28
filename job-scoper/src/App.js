@@ -14,9 +14,16 @@ function App() {
   const [walkScore, setWalkScore] = useState(0);
   const [transitScore, setTransitScore] = useState(0);
   const [bikeScore, setBikeScore] = useState(0);
+  const [walk_description, setWalkDescription] = useState(0);
+  const [transit_summary, setTransitSummary] = useState(0);
+  const [transit_description, setTransitDescription] = useState(0);
+  const [bike_description, setBikeDescription] = useState(0);
   const [ei, setEI] = useState(0);
   const [ei_legal, setEI_Legal] = useState(0);
   const [ei_po, setEI_PO] = useState(0);
+  const [genderafirm_legality, setGenderAfirmLegality] = useState(0);
+  const [employment_discrimination, setEmploymentDiscrimination] = useState(0);
+  const [abortion_policy, setAbortionPolicy] = useState(0);
 
   // Function to handle input changes
   const handleInputChange = (event) => {
@@ -44,6 +51,13 @@ function App() {
       setEI(data.ei_value);
       setEI_Legal(data.legal_ei_value);
       setEI_PO(data.po_ei_value);
+      setWalkDescription(data.walk_description);
+      setTransitSummary(data.transit_summary);
+      setTransitDescription(data.transit_description);
+      setBikeDescription(data.bike_description);
+      setGenderAfirmLegality(data.genderafirm_legality);
+      setEmploymentDiscrimination(data.employment_discrimination);
+      setAbortionPolicy(data.abortion_policy);
       setDataFetched(true);  // Set data fetched to true
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -65,9 +79,9 @@ function App() {
 
       {dataFetched && (
         <div className="Features">
-          <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} />
-          <WomansRights abortion_access="Yes" lgbt_friendliness="Yes" />
-          <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} />
+          <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} walk_description={walk_description} transit_description={transit_description} transit_summary={transit_summary} bike_description={bike_description}/>
+          <WomansRights abortion_policy={abortion_policy} employment_discrimination={employment_discrimination}/>
+          <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/>
         </div>
       )}
     </div>

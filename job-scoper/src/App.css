@@ -12,6 +12,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   line-height: 0px;
+  margin-top: 50px;
 }
 
 .Features {
@@ -32,7 +33,8 @@
   color: black;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  min-width: 280px;
+  min-width: 300px;
+  max-width: 360px;
 }
 
 .FeatureComponentLine {
@@ -52,4 +54,12 @@
   align-items: center;
   margin: 10px;
   width: 360px;
+}
+
+.MoreDetails{
+  line-height: 16px;
+  text-align: left;
+  padding: 5px;
+  color: rgb(65, 65, 65);
+  flex-direction: column;
 }

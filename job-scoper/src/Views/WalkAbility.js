@@ -1,7 +1,8 @@
 import React from 'react';
 import '../App.css';
+
 const WalkAbility = (props) => {
-    const { walkScore, transitScore, bikeScore } = props;
+    const { walkScore, transitScore, bikeScore, walk_description, transit_summary, transit_description, bike_description} = props;
 
     return (
         <div className='FeatureComponent'>
@@ -17,6 +18,12 @@ const WalkAbility = (props) => {
             <div className='FeatureComponentLine'>
                 <p>Bike-Score:</p>
                 <p>{bikeScore}</p>
+            </div>
+            <div className='MoreDetails'>
+                <p>{walk_description}</p>
+                <p>{transit_description}</p>
+                <p>{transit_summary}</p>
+                <p>{bike_description}</p>
             </div>
             <div className='Spacer'/>
         </div>
