@@ -1,0 +1,142 @@
+.App {
+  text-align: center;
+  line-height: 5px;
+}
+
+
+/* Rest of the code remains the same */
+.Header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  line-height: 0px;
+  margin-top: 50px;
+}
+
+.Features {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.FeatureComponent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 360px;
+}
+
+.FeatureComponentLine {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.Spacer {
+  flex: 1;
+}
+
+.SearchField {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 360px;
+}
+
+.MoreDetails{
+  line-height: 16px;
+  text-align: left;
+  padding: 5px;
+  color: rgb(65, 65, 65);
+  flex-direction: column;
+}
+
+.ResumeHelper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+  line-height: 16px;
+}
+
+.ResumeHelperArea{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  margin: 10px;
+  color: black;
+}
+
+.JobDescription{
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 300px;
+  text-align: left;
+}
+
+.Italics{
+  font-style: italic;
+}
+
+.ResumeHelperHeading{
+  margin-top: 60px;
+  text-align: center;
+  font-size: calc(10px + 1.5vmin);
+  line-height: 3px;
+}
+
+.ResumeUpload{
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 130px;
+}
+
+.HelperArea {
+  padding: 10px;
+  margin: 20px;
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 100px;
+  text-align: left;
+}
+
+.ResumeComponent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
