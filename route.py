@@ -1,6 +1,7 @@
 from app import *
 from functions.scrapers.locationScraper import *
 from functions.lgbtPolicy import *
+from functions.abortionAccess import *
 import requests
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -78,7 +79,7 @@ def api_get_location():
 
 
 
-			lgbt_policy = lgbtPolicy(state_id)
+			abortion_policy = abortionAccess(state_id)
 			# Replace 'LOCATION' with the location obtained from the API call
 			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
 
@@ -106,7 +107,7 @@ def api_get_location():
 				transit_score = walkscore_data['transit']['score']
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})
+			return jsonify({'abortion_policy': abortion_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
