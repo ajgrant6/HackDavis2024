@@ -1,6 +1,13 @@
 from app import *
 from locationScraper import *
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+googleAPI = os.getenv("GOOGLEAPI")
+walkscoreAPI = os.getenv("WALKSCOREAPI")
 
 #from flask_login import current_user, login_required
 
@@ -16,7 +23,7 @@ def index():
 #@login_required
 #def application():
 #
-#	return render_template("app.html")
+#	return render_template("app.html")	
 #
 
 
@@ -32,7 +39,7 @@ def api_get_location():
 			
 
 			# Replace 'LOCATION' with the location obtained from the API call
-			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key=AIzaSyDQZG8GKpEqkx6_XCzrkrWGEH9D7a6hJXo'
+			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
 
 			lat = 0
 			lon = 0
@@ -45,7 +52,7 @@ def api_get_location():
 				return jsonify({'error': 'Failed to retrieve geocode data'}), response.status_code
 
 
-			walkscore_url = f"https://api.walkscore.com/score?format=json&lat={lat}&transit=1&bike=1&wsapikey=e8a5a7dc1e1348952e542b644beb371c&lon={lon}"
+			walkscore_url = f"https://api.walkscore.com/score?format=json&lat={lat}&transit=1&bike=1&wsapikey={walkscoreAPI}&lon={lon}"
 			response = requests.get(walkscore_url)
 			if response.status_code == 200:
 				walkscore_data = response.json()
