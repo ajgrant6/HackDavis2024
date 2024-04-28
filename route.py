@@ -65,23 +65,9 @@ def api_get_location():
 				transit_description = walkscore_data['transit']['description']
 				transit_summary = walkscore_data['transit']['summary']
 				transit_score = walkscore_data['transit']['score']
-
-				print("Walkscore:", walkscore)
-				print("Walk Description:", walk_description)
-				print("Bike Description:", bike_description)
-				print("Bike Score:", bike_score)
-				print("Transit Description:", transit_description)
-				print("Transit Summary:", transit_summary)
-				print("Transit Score:", transit_score)
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-
-
-
-			print("Location:", location)
-			print("Latitude:", lat)
-			print("Longitude:", lon)
-			return jsonify({'location': location, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary})
+			return jsonify({'location': location, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
