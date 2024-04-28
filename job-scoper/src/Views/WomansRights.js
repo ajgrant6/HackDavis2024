@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-const Rights = (props) => {
+const WomansRights = (props) => {
     const { abortion_access, lgbt_friendliness } = props;
 
     return (
@@ -20,4 +20,4 @@ const Rights = (props) => {
     );
 };
 
-export default Rights;
+export default WomansRights;

@@ -1,16 +1,22 @@
 import './App.css';
 import React, { useState } from 'react';
 import WalkAbility from './Views/WalkAbility';
-import Rights from './Views/Rights';
+import WomansRights from './Views/WomansRights';
+import LGBTRights from './Views/LGBTRights';
 
 function App() {
   // State to hold the input value
   const [inputValue, setInputValue] = useState('');
+  const [dataFetched, setDataFetched] = useState(false);
+
 
   // States for walk score, transit score, and bike score
   const [walkScore, setWalkScore] = useState(0);
   const [transitScore, setTransitScore] = useState(0);
   const [bikeScore, setBikeScore] = useState(0);
+  const [ei, setEI] = useState(0);
+  const [ei_legal, setEI_Legal] = useState(0);
+  const [ei_po, setEI_PO] = useState(0);
 
   // Function to handle input changes
   const handleInputChange = (event) => {
@@ -35,6 +41,10 @@ function App() {
       setWalkScore(data.walkscore);
       setTransitScore(data.transit_score);
       setBikeScore(data.bike_score);
+      setEI(data.ei_value);
+      setEI_Legal(data.legal_ei_value);
+      setEI_PO(data.po_ei_value);
+      setDataFetched(true);  // Set data fetched to true
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -53,11 +63,13 @@ function App() {
         </div>
       </div>
 
-      <div className="Features">
-        {/* Updated component to use state values */}
-        <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} />
-        <Rights abortion_access="Legal" lgbt_friendliness="Accepting" />
-      </div>
+      {dataFetched && (
+        <div className="Features">
+          <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} />
+          <WomansRights abortion_access="Yes" lgbt_friendliness="Yes" />
+          <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} />
+        </div>
+      )}
     </div>
   );
 }
