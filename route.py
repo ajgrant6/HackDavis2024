@@ -62,9 +62,9 @@ def api_get_location():
 
 
 				ei_value = state_data['regions']['region']['ei']
-				pei_value = state_data['regions']['region']['ei_legal']
-				oei_value = state_data['regions']['region']['ei_po']
-				employment_descrimination = state_data['regions']['region']['issues']['employment-discrimination']['current_status']['description']
+				legal_ei_value = state_data['regions']['region']['ei_legal']
+				po_ei_value = state_data['regions']['region']['ei_po']
+				employment_discrimination = state_data['regions']['region']['issues']['employment-discrimination']['current_status']['description']
 				housing_description = state_data['regions']['region']['issues']['housing-discrimination']['current_status']['description']
 				transrights_legality = state_data['regions']['region']['issues']['changing-gender']['current_status']['value']
 				genderafirm_legality = state_data['regions']['region']['issues']['gender-affirming-care']['current_status']['value']
@@ -106,7 +106,7 @@ def api_get_location():
 				transit_score = walkscore_data['transit']['score']
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "pei_value": pei_value, "oei_value": oei_value, "employment_descrimination": employment_descrimination, "housing_descrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})
+			return jsonify({'lgbt_policy': lgbt_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
