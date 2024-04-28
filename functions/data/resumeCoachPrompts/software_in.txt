@@ -1,0 +1,87 @@
+============
+BEGIN RESUME
+============
+AJ Grant San Diego, CA
++1(760)-224-7645
+aj.grant6@icloud.com
+EDUCATION
+University of California, Merced June 2024
+Bachelor of Science - Computer Science and Engineering - 3.8 GPA
+▪ Achieved Chancellor and Dean’s Honor list.
+▪ Studied Abroad at University College Maastricht in the Spring 2023 semester.
+▪ Relevant Courses:
+Data Structures, Data Analysis, Datamining, Algorithm Design and Analysis, Computer Vision, Artificial
+Intelligence, Object Oriented Programming, Full Stack Development
+PROJECTS
+Sweep AI: LLM Fine-tuning API February 2024
+▪ Engineered an API for fine-tuning Large Language Models (LLMs) locally, allowing clients to create custom
+chatbots without compromising sensitive data by relying on other cloud-based solutions.
+▪ Implemented secure data storage mechanisms using a Postgres database, ensuring confidentiality and
+integrity of sensitive information during the fine-tuning process.
+▪ Utilized Docker to containerize the API, streamlining deployment across various environments, guaranteeing
+consistent behavior, and facilitating future scalability.
+PUNKT: Distribution Center Data Analysis May 2023
+▪ Collaborated with an interdisciplinary team to analyze real-world logistics data from European cargo
+distribution centers.
+▪ Utilized insights from our models to create a comprehensive case study highlighting the weak points in a
+distribution center’s loading and unloading process.
+▪ Developed logistic regression, decision tree, and random forest classification models in KNIME that
+organized delivery trucks by loading and unloading efficiency.
+▪ Constructed a linear regression model in KNIME to estimate truck unloading times before arrival.
+Caravan Insurance Mailing List Optimization February 2023
+▪ Developed a classification model in Weka to identify individuals with the highest likelihood of responding to
+the mailing list, resulting in an efficiency improvement of over 200%.
+▪ Conducted ranked attribute selection on customer data to pinpoint the top five attributes correlated with a
+positive response to the mailing list, providing valuable insights into the customer base.
+PROFESSIONAL EXPERIENCE
+Office of Information Technology, UC Merced Merced California
+Academic Technologies Student Consultant 2021 - Present
+▪ Applied troubleshooting skills to assist lecturers with classroom tools including audiovisual, conferencing,
+and ZOOM technology.
+▪ Provided remote assistance to students and faculty via Pure Chat and collaborated with colleagues on Slack.
+▪ Recorded and tracked incident tickets using ServiceNow Tools, ensuring transparent and timely service.
+SKILLS
+Coding and Deployment: Python, C++, C, JAVA, SQL, GitHub, Amazon Web Services
+Software: MATLAB, KNIME, Weka, Tableau, Celonis: Process Mining, Excel
+Languages: A1 Dutch, A1 German
+==========
+END RESUME
+==========
+=====================
+BEGIN JOB DESCRIPTION
+=====================
+Who We Are:
+We are the future of real estate, Welcome to Top Shelf RE. We're not just changing the game in real estate, we're creating a whole new playing field. Our vision? To revolutionize the real estate industry through strategic innovation, cutting-edge technology, and a deep commitment to community development. Our mission is bold but straightforward: to make every property transaction a catalyst for community enrichment and a beacon of what's possible tomorrow.
+We're building a robust, scalable cloud platform designed to empower sellers, buyers, and agents like never before. With our innovative approach, we're streamlining operations across sales, finance, customer service, and more, setting a new standard for simplicity, speed, and user satisfaction in real estate transactions.
+The Role:
+As our Senior Full-Stack Developer, you'll be pivotal in developing the Top Shelf RE platform, transforming the real estate experience for users nationwide. You'll blend your expertise in modern software development with a passion for innovation, creating intuitive, powerful solutions that lead the industry forward.
+Your Impact:
+Innovate and Implement: Develop front-end applications with React, NextJS, and TypeScript and craft back-end systems with NodeJS, GraphQL, and Express.
+Lead with Expertise: Utilize your experience in SaaS and real estate systems to enhance our platform's functionality and user experience.
+Shape the Future: Play a key role in all stages of software development, from concept to launch, ensuring Top Shelf RE remains at the forefront of the industry.
+We're Looking For:
+5-7 years of software development experience, ideally within SaaS or real estate.
+Deep knowledge of full-stack development, including React, NodeJS, TypeScript, and AWS.
+A problem-solver with a knack for innovation and a drive to create outstanding user experiences.
+Excellent communication skills and a collaborative spirit, ready to join a team that values bold ideas and diverse perspectives.
+Why you'll love being part of our team:
+We're not just colleagues, we're a devoted group committed to creating positive change.
+Growth and learning are part of the deal. As we evolve, so will you, with endless opportunities to expand your skills, impact and career.
+The chance to be a part of a company that's on a fast track to becoming a household name in real estate.
+A flexible work environment where your ideas are valued and your work-life balance is respected.
+Opportunities for growth and leadership within a dynamic and supportive team.
+Join Us:
+If you're ready to channel your genius into a cause that matters, we're ready for you. Send us an email for faster response telling us your story, and examples of how you've enchanted the world with your development spells to sara@topshelfre.com
+Top Shelf RE is dedicated to creating a diverse and inclusive environment. We welcome applicants from all backgrounds to join us on this exciting journey. Be a part of our mission to challenge the status quo and establish a new standard in real estate. We can't wait to welcome you to our team!
+Job Type: Full-time
+Pay: $65,634.92 - $95,194.74 per year
+Experience level:
+3 years
+Schedule:
+Choose your own hours
+Ability to Commute:
+Sacramento, CA 95814 (Required)
+Work Location: In person
+===================
+END JOB DESCRIPTION
+===================

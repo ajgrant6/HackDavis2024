@@ -1,0 +1,16 @@
+Points Where You Are a Good Fit:
+1. Technical Skills: Your resume shows strong proficiency in coding and software development, which aligns with the job's requirements.
+2. Project Experience: Your involvement in projects like Sweep AI and PUNKT demonstrates your capability in application development and API management, relevant for this role.
+3. Educational Background: Your Bachelor's in Computer Science and Engineering matches the technical demands of this position.
+
+Points Where You Are Not a Good Fit:
+1. Specific Technologies: The job requires expertise in React, NextJS, TypeScript, NodeJS, GraphQL, and Express, which are not listed in your resume.
+2. Experience Level: The job seeks 5-7 years of professional software development experience, which appears to exceed your current level.
+3. Industry Experience: There is no evidence of SaaS or real estate experience, preferred for this role.
+
+How to Improve Your Resume:
+1. Highlight Relevant Skills: If you possess any skills in React, NodeJS, or TypeScript, clearly include these in your resume. If not, consider acquiring these skills through courses.
+2. Detail Your Experience: Emphasize any professional experiences related to full-stack development, particularly in SaaS platforms.
+3. Emphasize Soft Skills: Highlight instances where you demonstrated excellent communication and teamwork, as these are crucial for the role.
+
+Focus on showcasing relevant technical skills and gaining experience in the specified technologies to better align with the job requirements.

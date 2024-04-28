@@ -89,5 +89,5 @@ if __name__ == "__main__":
     # url = "https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&original_referer=https%3A%2F%2Fwww.linkedin.com%2F%3Ftrk%3Dguest_homepage-basic_nav-header-logo&currentJobId=3912685323&position=2&pageNum=0"
     # print(get_company_job_description_linkedin(url))
 
-    url = "https://www.indeed.com/jobs?q=part+time&l=Davis%2C+CA&from=searchOnHP&vjk=fd50c4ffb93f08dc"
+    url = "https://www.indeed.com/q-business-analyst-jobs.html?vjk=443cb2513ce0ebb7"
     print(get_company_job_description_indeed(url))
