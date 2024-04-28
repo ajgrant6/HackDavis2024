@@ -11,20 +11,18 @@ const WalkAbility = (props) => {
                 <p>Walk-Score:</p>
                 <p>{walkScore}</p>
             </div>
+                <p className='MoreDetails'>{walk_description}</p>
             <div className='FeatureComponentLine'>
                 <p>Transit-Score:</p>
                 <p>{transitScore}</p>
             </div>
+                <p className='MoreDetails'>{transit_description}</p>
+                <p className='MoreDetails'>{transit_summary}</p>
             <div className='FeatureComponentLine'>
                 <p>Bike-Score:</p>
                 <p>{bikeScore}</p>
             </div>
-            <div className='MoreDetails'>
-                <p>{walk_description}</p>
-                <p>{transit_description}</p>
-                <p>{transit_summary}</p>
-                <p>{bike_description}</p>
-            </div>
+                <p className='MoreDetails'>{bike_description}</p>
             <div className='Spacer'/>
         </div>
     );
