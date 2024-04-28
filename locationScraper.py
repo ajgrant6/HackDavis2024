@@ -101,7 +101,7 @@ def parse_url(url):
     
     elif "indeed.com" in url:
 
-        if "https://www.indeed.com/viewjob?jk=" in url:
+        if "indeed.com/viewjob?jk=" in url:
             new_url = url
         else:
             job_id = url.split("jk=")[1].split("&")[0]
