@@ -115,7 +115,7 @@ def api_get_location():
 			else:
 				return jsonify({'error': 'Failed to retrieve geocode data'}), response.status_code
 
-			print(lat, lon)
+
 			walkscore_url = f"https://api.walkscore.com/score?format=json&lat={lat}&transit=1&bike=1&wsapikey={walkscoreAPI}&lon={lon}"
 			response = requests.get(walkscore_url)
 			if response.status_code == 200:
@@ -134,7 +134,7 @@ def api_get_location():
 					transit_score = 0
 			else:
 				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'abortion_policy': abortion_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality, 'lat': lat, 'lon': lon})
+			return jsonify({'abortion_policy': abortion_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality, "lat": lat, "lon": lon})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:

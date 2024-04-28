@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-require('dotenv').config();
+
 
 
 const MapContainer = (props) => {
@@ -31,6 +31,5 @@ const MapContainer = (props) => {
   };
 
 export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLEAPI
-
+  apiKey: process.env.REACT_APP_GOOGLEAPI
 })(MapContainer);
