@@ -11,3 +11,7 @@ You can also make use of ChatGPT to compare your resume to the job posting's des
 To use Job Scoper, simply copy and paste the URL of a LinkedIn or Indeed job posting into the search bar. Job Scoper will then analyze the job posting and provide you with a detailed description of the city where the job is located.
 
 To make use of the ChatGPT resume analysis feature, simply upload your resume as a PDF. the job description will be automatically compared to your resume.
+
+## Technology Used
+
+![Tech Stack](images/techstack.png)
