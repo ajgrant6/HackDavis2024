@@ -37,7 +37,8 @@ def api_get_location():
 			if location == "not found":
 				return jsonify({'error': 'Location not found'}), 404
 			
-
+			state_id = location.split(',')[-1].strip()[:2]
+			print(state_id)
 			# Replace 'LOCATION' with the location obtained from the API call
 			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
 
@@ -56,8 +57,6 @@ def api_get_location():
 			response = requests.get(walkscore_url)
 			if response.status_code == 200:
 				walkscore_data = response.json()
-				# Extract the desired information from the walkscore_data
-				# and use it as needed in your code
 				walkscore = walkscore_data['walkscore']
 				walk_description = walkscore_data['description']
 				bike_description = walkscore_data['bike']['description']
