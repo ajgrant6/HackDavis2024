@@ -70,15 +70,6 @@ def api_get_location():
 				genderafirm_legality = state_data['regions']['region']['issues']['gender-affirming-care']['current_status']['value']
 
 
-				print("EI:", ei_value)
-				print("PEI:", pei_value)
-				print("OEI:", oei_value)
-				print("Employment Discrimination:", employment_descrimination)
-				print("Housing Discrimination:", housing_description)
-				print("Transgender Rights:", transrights_legality)
-				print("Gender Affirming Care:", genderafirm_legality)
-
-
 			else:
 				print("Error:", response.status_code)
 
