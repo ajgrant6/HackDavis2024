@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %}
+
+<body>
+
+	<h1>Default Index Page</h1>
+
+	<form action="/login" method="POST">
+		<input type="text" id="username" name="username" placeholder="username" />
+		<input type="password" id="username" name="password" placeholder="********" />
+		<input type="submit" value="Log In" />
+	</form>
+
+	{% if failed %}
+		<p style="color: red">Login failed.</p>
+	{% endif %}
+
+</body>
+
+</html>
