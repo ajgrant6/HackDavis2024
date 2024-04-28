@@ -81,7 +81,7 @@ def api_get_location():
 			print("Location:", location)
 			print("Latitude:", lat)
 			print("Longitude:", lon)
-			return jsonify({'location': location})
+			return jsonify({'location': location, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary})
 		else:
 			return jsonify({'error': 'Missing link parameter'}), 400
 	else:
