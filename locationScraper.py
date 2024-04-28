@@ -124,22 +124,23 @@ def parse_url(url):
 # indeed
 #linkedin
 #glassdoor
-while True:
-    url = input("Enter a job listing URL (or 'q' to quit): ")
-    if url == 'q':
-        break
+# while True:
+#     url = input("Enter a job listing URL (or 'q' to quit): ")
+#     if url == 'q':
+#         break
     
-    company_location = parse_url(url)
-    print(url)
+#     company_location = parse_url(url)
+#     print(url)
 
-    if company_location:
-        print("Company location:", company_location)
-    else:
-        print("Location information not found.")
+#     if company_location:
+#         print("Company location:", company_location)
+#     else:
+#         print("Location information not found.")
 
 def get_location(url):
+    company_location = parse_url(url)
     if company_location:
         return company_location
     else:
-        return "Location information not found."
+        return "not found"
 

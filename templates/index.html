@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html>
 
-{% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %}
+<!-- {% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %} -->
 
 <body>
 
-	<h1>Default Index Page</h1>
+	<h1>Accessibility checker</h1>
+	<input type="text" id="queryInput" placeholder="Enter your query">
+	<button type="button" onclick="fetchInfo()">Submit</button>
 
-	<form action="/login" method="POST">
-		<input type="text" id="username" name="username" placeholder="username" />
-		<input type="password" id="username" name="password" placeholder="********" />
-		<input type="submit" value="Log In" />
-	</form>
-
-	{% if failed %}
-		<p style="color: red">Login failed.</p>
-	{% endif %}
+	<script>
+	function fetchInfo() {
+		const query = document.getElementById("queryInput").value;
+		const payload = { link: query };
+		fetch(`/api/getInfo`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		})
+			.then(response => response.json())
+			.then(data => {
+				// Work with JSON data here
+				console.log(data);
+			})
+			.catch(error => {
+				// Handle any errors here
+				console.error('Error:', error);
+			});
+	}
+	</script>
 
 </body>
 
