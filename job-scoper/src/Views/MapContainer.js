@@ -17,12 +17,13 @@ const MapContainer = (props) => {
 
         <Map
             google={props.google}
-            zoom={10}
-            style={mapStyles}
-            initialCenter={{
-            lat: parseInt(latIn),
-            lng: parseInt(lonIn)
+            zoom={14}
+          style={mapStyles}
+          initialCenter={{
+            lat: latIn,
+            lng: lonIn
             }}
+          containerStyle={{ height: '500px' }}
         >
             <Marker position={{ lat: parseInt(latIn), lng: parseInt(lonIn) }} />
         </Map>
