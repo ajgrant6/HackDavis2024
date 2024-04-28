@@ -1,2 +1,15 @@
 venv/
 *.sqlite
+.DS_Store
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pyi
+*.pyz
+*.pyw
+*.pyz
+*.pyw
+*.egg-info/
+dist/
+build/
