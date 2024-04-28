@@ -14,7 +14,7 @@ const MapContainer = (props) => {
     const { latIn, lonIn } = props;
   
     return (
-        <div>
+
         <Map
             google={props.google}
             zoom={10}
@@ -26,7 +26,7 @@ const MapContainer = (props) => {
         >
             <Marker position={{ lat: parseInt(latIn), lng: parseInt(lonIn) }} />
         </Map>
-        </div>
+
     );
   };
 
