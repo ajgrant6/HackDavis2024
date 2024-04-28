@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
+	
 
-{% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %}
+<!-- {% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %} -->
 
-<body>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
 
-	<h1>Default Index Page</h1>
+	<h1>Accessibility checker</h1>
+	<input type="text" id="queryInput" placeholder="Enter your query">
+	<button type="button" onclick="fetchInfo()">Submit</button>
 
-	<form action="/login" method="POST">
-		<input type="text" id="username" name="username" placeholder="username" />
-		<input type="password" id="username" name="password" placeholder="********" />
-		<input type="submit" value="Log In" />
-	</form>
-
-	{% if failed %}
-		<p style="color: red">Login failed.</p>
-	{% endif %}
+	<script>
+	
+	</script>
 
 </body>
 
