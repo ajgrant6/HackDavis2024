@@ -84,10 +84,45 @@ def get_company_job_description_indeed(url):
         print("An error occurred:", e)
         return None
     
-# Run if this is the main module
-if __name__ == "__main__":
-    # url = "https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&original_referer=https%3A%2F%2Fwww.linkedin.com%2F%3Ftrk%3Dguest_homepage-basic_nav-header-logo&currentJobId=3912685323&position=2&pageNum=0"
-    # print(get_company_job_description_linkedin(url))
+# # Run if this is the main module
+# if __name__ == "__main__":
+#     # url = "https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&original_referer=https%3A%2F%2Fwww.linkedin.com%2F%3Ftrk%3Dguest_homepage-basic_nav-header-logo&currentJobId=3912685323&position=2&pageNum=0"
+#     # print(get_company_job_description_linkedin(url))
 
-    url = "https://www.indeed.com/q-business-analyst-jobs.html?vjk=443cb2513ce0ebb7"
-    print(get_company_job_description_indeed(url))
+#     url = "https://www.indeed.com/q-business-analyst-jobs.html?vjk=443cb2513ce0ebb7"
+#     print(get_company_job_description_indeed(url))
+
+
+
+def parse_url(url):
+    if "linkedin.com" in url:
+        if "linkedin.com/jobs/view/" in url:
+            new_url = url
+        else:
+
+            job_id = url.split("currentJobId=")[1].split("&")[0]
+            new_url = "https://www.linkedin.com/jobs/view/" + job_id
+
+        return get_company_job_description_linkedin(new_url)
+    
+    elif "indeed.com" in url:
+
+        if "indeed.com/viewjob?jk=" in url:
+            new_url = url
+        else:
+            job_id = url.split("jk=")[1].split("&")[0]
+            new_url = "https://www.indeed.com/viewjob?jk=" + job_id
+        return get_company_job_description_indeed(new_url)
+    else:
+        print("Invalid URL. Please enter a LinkedIn job listing URL.")  
+        return None
+    
+
+
+def get_job_description(url):
+    job_description = parse_url(url)
+
+    if job_description:
+        return job_description
+    else:
+        return "not found"
