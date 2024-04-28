@@ -21,7 +21,7 @@ const LGBTRights = (props) => {
                     <p className='ZeroPaddingMargin'>{ei_po}</p>
                 </div>
                 <div className='FeatureComponentLine' style={{ marginBottom: '15px' }}>
-                    <p className='ZeroPaddingMargin'>Gender Affirmative Care:</p>
+                    <p className='ZeroPaddingMargin'>Gender Affirming Care:</p>
                     <p className='ZeroPaddingMargin'>{genderafirm_legality}</p>
                 </div>
                 <div className='FeatureComponentLine' >
