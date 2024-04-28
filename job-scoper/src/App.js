@@ -79,7 +79,7 @@ function App() {
   return (
     <div className="App">
       <div className='Header'>
-        <h1>Job Scoper</h1>
+        <h1>Job Scoper 🏢🤔</h1>
         <p>Find the best city for you to live and work in</p>
         <div className="SearchField">
           <input type="text" size="40" placeholder="Place a LinkedIn or Indeed Job Posting Here"
