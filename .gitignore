@@ -15,3 +15,5 @@ dist/
 build/
 dotenv
 .env
+# React Component Preview
+previewConfig.json
