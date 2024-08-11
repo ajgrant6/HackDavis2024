@@ -4,6 +4,7 @@ from functions.lgbtPolicy import *
 from functions.abortionAccess import *
 from functions.scrapers.jobDescScraper import *
 from functions.resumeCoach import *
+from functions.stateID import *
 from PyPDF2 import *
 import requests
 from dotenv import load_dotenv
@@ -55,92 +56,121 @@ def resumetest():
 
 @app.route('/api/getInfo', methods=['POST'])
 def api_get_location():
-	if request.is_json:
-		data = request.json
-		if 'link' in data:
-			link = data['link']
-			location = get_location(link)
-			if location == "not found":
-				return jsonify({'error': 'Location not found'}), 404
-			
-			state_id = location.split(',')[-1].strip()[:2]
+    # Initialize a dictionary with all keys set to "No Data"
+    response_data = {
+        "abortion_policy": "No Data",
+        "walkscore": "No Data",
+        "walk_description": "No Data",
+        "bike_description": "No Data",
+        "bike_score": "No Data",
+        "transit_description": "No Data",
+        "transit_summary": "No Data",
+        "transit_score": "No Data",
+        "ei_value": "No Data",
+        "legal_ei_value": "No Data",
+        "po_ei_value": "No Data",
+        "employment_discrimination": "No Data",
+        "housing_discrimination": "No Data",
+        "transrights_legality": "No Data",
+        "genderafirm_legality": "No Data",
+        "lat": "No Data",
+        "lon": "No Data",
+        "state_id": "No Data"
+    }
 
+    if request.is_json:
+        data = request.json
+        if 'link' in data:
+            link = data['link']
+            location = get_location(link)
+            if location == "not found":
+                return jsonify({'error': 'Location not found'}), 404
 
-			url = "https://www.equaldex.com/api/region"
-			querystring = {"regionid": "US-" + state_id, "formatted": "false", "apiKey": equalDexAPI}
-			headers = {"Accept": "application/json"}
+            # Use Google Maps API to get structured address components
+            try:
+                geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?address={location}&key={googleAPI}'
+                response = requests.get(geocode_url)
+                if response.status_code == 200:
+                    geocode_data = response.json()
+                    if len(geocode_data['results']) > 0:
+                        address_components = geocode_data['results'][0]['address_components']
+                        # Extract the state ID from the address components
+                        state_id = next((component['short_name'] for component in address_components if 'administrative_area_level_1' in component['types']), None)
+                        if state_id:
+                            response_data["state_id"] = state_id
+                            response_data["lat"] = geocode_data['results'][0]['geometry']['location']['lat']
+                            response_data["lon"] = geocode_data['results'][0]['geometry']['location']['lng']
+                        else:
+                            return jsonify({'error': 'State ID not found in location data'}), 400
+                    else:
+                        return jsonify({'error': 'Geocode data not found for the location'}), 404
+                else:
+                    return jsonify({'error': 'Failed to retrieve geocode data'}), response.status_code
+            except Exception as e:
+                print(f"Failed to fetch geocode data: {e}")
+                return jsonify({'error': 'An error occurred while fetching geocode data'}), 500
 
-			response = requests.get(url, headers=headers, params=querystring)
+            # Fetch data from EqualDex API
+            try:
+                url = "https://www.equaldex.com/api/region"
+                querystring = {"regionid": "US-" + state_id, "formatted": "false", "apiKey": equalDexAPI}
+                headers = {"Accept": "application/json"}
+                response = requests.get(url, headers=headers, params=querystring)
+                
+                if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    pre_content = soup.find('pre').text
+                    state_data = json.loads(pre_content)
 
-			# Check if the request was successful
-			if response.status_code == 200:
-				# Parse the response text using BeautifulSoup
-				soup = BeautifulSoup(response.text, 'html.parser')
+                    response_data["ei_value"] = state_data['regions']['region']['ei']
+                    response_data["legal_ei_value"] = state_data['regions']['region']['ei_legal']
+                    response_data["po_ei_value"] = state_data['regions']['region']['ei_po']
+                    response_data["employment_discrimination"] = state_data['regions']['region']['issues']['employment-discrimination']['current_status']['description']
+                    response_data["housing_discrimination"] = state_data['regions']['region']['issues']['housing-discrimination']['current_status']['description']
+                    response_data["transrights_legality"] = state_data['regions']['region']['issues']['changing-gender']['current_status']['value']
+                    response_data["genderafirm_legality"] = state_data['regions']['region']['issues']['gender-affirming-care']['current_status']['value']
+                else:
+                    print("Error:", response.status_code)
+            except Exception as e:
+                print(f"Failed to fetch EqualDex data: {e}")
 
-				# Extract the content within <pre> tags
-				pre_content = soup.find('pre').text
+            # Fetch abortion policy
+            try:
+                response_data["abortion_policy"] = abortionAccess(state_id)
+            except Exception as e:
+                print(f"Failed to fetch abortion policy: {e}")
 
-				# Parse the content as JSON
-				state_data = json.loads(pre_content)
+            # Fetch WalkScore data
+            try:
+                if response_data["lat"] != "No Data" and response_data["lon"] != "No Data":
+                    walkscore_url = f"https://api.walkscore.com/score?format=json&lat={response_data['lat']}&transit=1&bike=1&wsapikey={walkscoreAPI}&lon={response_data['lon']}"
+                    response = requests.get(walkscore_url)
+                    if response.status_code == 200:
+                        walkscore_data = response.json()
+                        response_data["walkscore"] = walkscore_data['walkscore']
+                        response_data["walk_description"] = walkscore_data['description']
+                        response_data["bike_description"] = walkscore_data['bike']['description']
+                        response_data["bike_score"] = walkscore_data['bike']['score']
+                        try:
+                            response_data["transit_description"] = walkscore_data['transit']['description']
+                            response_data["transit_summary"] = walkscore_data['transit']['summary']
+                            response_data["transit_score"] = walkscore_data['transit']['score']
+                        except KeyError:
+                            response_data["transit_description"] = "No Transit"
+                            response_data["transit_summary"] = "No public transit routes available nearby"
+                            response_data["transit_score"] = 0
+                    else:
+                        print("Error:", response.status_code)
+            except Exception as e:
+                print(f"Failed to fetch WalkScore data: {e}")
 
+            return jsonify(response_data)
 
-				ei_value = state_data['regions']['region']['ei']
-				legal_ei_value = state_data['regions']['region']['ei_legal']
-				po_ei_value = state_data['regions']['region']['ei_po']
-				employment_discrimination = state_data['regions']['region']['issues']['employment-discrimination']['current_status']['description']
-				housing_description = state_data['regions']['region']['issues']['housing-discrimination']['current_status']['description']
-				transrights_legality = state_data['regions']['region']['issues']['changing-gender']['current_status']['value']
-				genderafirm_legality = state_data['regions']['region']['issues']['gender-affirming-care']['current_status']['value']
-
-
-			else:
-				print("Error:", response.status_code)
-
-
-
-
-
-
-			abortion_policy = abortionAccess(state_id)
-			# Replace 'LOCATION' with the location obtained from the API call
-			geocode_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location + '&key='	+ googleAPI
-
-			lat = 0
-			lon = 0
-			response = requests.get(geocode_url)
-			if response.status_code == 200:
-				geocode_data = response.json()
-				lat = geocode_data['results'][0]['geometry']['location']['lat']
-				lon = geocode_data['results'][0]['geometry']['location']['lng']
-			else:
-				return jsonify({'error': 'Failed to retrieve geocode data'}), response.status_code
-
-
-			walkscore_url = f"https://api.walkscore.com/score?format=json&lat={lat}&transit=1&bike=1&wsapikey={walkscoreAPI}&lon={lon}"
-			response = requests.get(walkscore_url)
-			if response.status_code == 200:
-				walkscore_data = response.json()
-				walkscore = walkscore_data['walkscore']
-				walk_description = walkscore_data['description']
-				bike_description = walkscore_data['bike']['description']
-				bike_score = walkscore_data['bike']['score']
-				try:
-					transit_description = walkscore_data['transit']['description']
-					transit_summary = walkscore_data['transit']['summary']
-					transit_score = walkscore_data['transit']['score']
-				except KeyError:
-					transit_description = "No Transit"
-					transit_summary = "No public transit routes available nearby"
-					transit_score = 0
-			else:
-				return jsonify({'error': 'Failed to retrieve walkscore data'}), response.status_code
-			return jsonify({'abortion_policy': abortion_policy, 'walkscore': walkscore, 'walk_description': walk_description, 'bike_description': bike_description, 'bike_score': bike_score, 'transit_description': transit_description, 'transit_summary': transit_summary, "transit_score": transit_score, "ei_value": ei_value, "legal_ei_value": legal_ei_value, "po_ei_value": po_ei_value, "employment_discrimination": employment_discrimination, "housing_discrimination": housing_description, "transrights_legality": transrights_legality, "genderafirm_legality": genderafirm_legality, "lat": lat, "lon": lon})
-		else:
-			return jsonify({'error': 'Missing link parameter'}), 400
-	else:
-		return jsonify({'error': 'Request must be JSON'}), 400
-	
-
+        else:
+            return jsonify({'error': 'Missing link parameter'}), 400
+    else:
+        return jsonify({'error': 'Request must be JSON'}), 400
+    
 
 
 @app.route('/api/getJobDescription', methods=['POST'])
