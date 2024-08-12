@@ -1,5 +1,5 @@
 # Use the official Python image as the base image
-FROM python:3.10-slim
+FROM python:3.10
 
 # Set the working directory in the container
 WORKDIR /app
@@ -10,6 +10,9 @@ COPY requirements.txt .
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Gunicorn, a production-grade WSGI server
+RUN pip install gunicorn
+
 # Copy the rest of the application code into the container
 COPY . .
 
@@ -17,7 +20,7 @@ COPY . .
 EXPOSE 5000
 
 # Set the environment variable for Flask
-ENV FLASK_APP=app.py
+ENV FLASK_APP=main.py
 
-# Command to run the Flask app
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Command to run the Flask app using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]

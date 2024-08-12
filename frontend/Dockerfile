@@ -1,7 +1,5 @@
-# Use an official Node.js image as the base image
-FROM node:18
-
-# Set the working directory in the container
+# Stage 1: Build the React app
+FROM node:18 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
@@ -16,11 +14,12 @@ COPY job-scoper/ ./
 # Build the React app
 RUN npm run build
 
-# Install a simple HTTP server to serve the static files
-RUN npm install -g serve
+# Stage 2: Serve the React app with Nginx
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
 
 # Expose the port on which the app will run
-EXPOSE 3000
+EXPOSE 80
 
-# Command to serve the app
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Command to start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
