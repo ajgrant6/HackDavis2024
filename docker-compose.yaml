@@ -13,7 +13,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
+<<<<<<< HEAD
       - "5000:5000"
+=======
+      - "8080:5000" #Port 5000 is used for AirPlay on Macs :(
+>>>>>>> b1e4570daef068d3d6fd446800694da069420d38
     env_file:
       - .env
     environment:

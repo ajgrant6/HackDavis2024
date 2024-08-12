@@ -21,10 +21,11 @@ function App() {
   const [transit_summary, setTransitSummary] = useState(0);
   const [transit_description, setTransitDescription] = useState(0);
   const [bike_description, setBikeDescription] = useState(0);
-  const [ei, setEI] = useState(0);
-  const [ei_legal, setEI_Legal] = useState(0);
-  const [ei_po, setEI_PO] = useState(0);
-  const [genderafirm_legality, setGenderAfirmLegality] = useState(0);
+  // const [ei, setEI] = useState(0);
+  // const [ei_legal, setEI_Legal] = useState(0);
+  // const [ei_po, setEI_PO] = useState(0);
+  // const [genderafirm_legality, setGenderAfirmLegality] = useState(0);
+  const [state_id, setStateID] = useState(0);
   const [employment_discrimination, setEmploymentDiscrimination] = useState(0);
   const [abortion_policy, setAbortionPolicy] = useState(0);
   const [lat, setLat] = useState(0);
@@ -54,18 +55,19 @@ function App() {
       setWalkScore(data.walkscore);
       setTransitScore(data.transit_score);
       setBikeScore(data.bike_score);
-      setEI(data.ei_value);
-      setEI_Legal(data.legal_ei_value);
-      setEI_PO(data.po_ei_value);
+      // setEI(data.ei_value);
+      // setEI_Legal(data.legal_ei_value);
+      // setEI_PO(data.po_ei_value);
+      // setGenderAfirmLegality(data.genderafirm_legality);
       setWalkDescription(data.walk_description);
       setTransitSummary(data.transit_summary);
       setTransitDescription(data.transit_description);
       setBikeDescription(data.bike_description);
-      setGenderAfirmLegality(data.genderafirm_legality);
       setEmploymentDiscrimination(data.employment_discrimination);
       setAbortionPolicy(data.abortion_policy);
       setLat(data.lat);
       setLon(data.lon);
+      setStateID(data.state_id);
       console.log(lat)
       console.log(lon)
       setDataFetched(true);  // Set data fetched to true
@@ -97,7 +99,8 @@ function App() {
           <div className="Features">
             <WalkAbility walkScore={walkScore} transitScore={transitScore} bikeScore={bikeScore} walk_description={walk_description} transit_description={transit_description} transit_summary={transit_summary} bike_description={bike_description}/>
             <WomansRights abortion_policy={abortion_policy} employment_discrimination={employment_discrimination}/>
-            <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/>
+            {/* <LGBTRights ei={ei} ei_legal={ei_legal} ei_po={ei_po} genderafirm_legality={genderafirm_legality} employment_discrimination={employment_discrimination}/> */}
+            <LGBTRights state_id={state_id}/>
           </div>
 
           <div style ={{marginTop: '30px', marginBottom: "500px"}}>
