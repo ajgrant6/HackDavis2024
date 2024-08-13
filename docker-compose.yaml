@@ -3,6 +3,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: jobscoper-frontend:latest  # Tag for the frontend image
     ports:
       - "80:80"
     depends_on:
@@ -12,12 +13,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: jobscoper-backend:latest  # Tag for the backend image
     ports:
-<<<<<<< HEAD
       - "5000:5000"
-=======
-      - "8080:5000" #Port 5000 is used for AirPlay on Macs :(
->>>>>>> b1e4570daef068d3d6fd446800694da069420d38
     env_file:
       - .env
     environment:
