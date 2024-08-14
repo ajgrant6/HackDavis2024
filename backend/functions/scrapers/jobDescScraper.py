@@ -1,19 +1,36 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+def configure_chrome_driver():
+    options = Options()
+    options.headless = True  # Run Chrome in headless mode
+    options.add_argument("--no-sandbox")  # Bypass OS security model
+    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    options.add_argument("--disable-gpu")  # Applicable in headless mode, especially for environments without a GPU
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--remote-debugging-port=9222")  # Allow remote debugging if needed
+    options.add_argument("--start-maximized")  # Start maximized (helps avoid issues with rendering)
+    options.add_argument("--disable-software-rasterizer")  # Use CPU for rendering
+    options.add_argument("--window-size=1920,1080")  # Set window size to a reasonable default
+
+    # Initialize Chrome WebDriver
+    driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=options)
+    return driver
+
 def get_company_job_description_linkedin(url):
     try:
-        options = Options()
-        options.headless = True
         job_description = None
 
-        # Try 3 times to find the element with class "description__text"
+        # Try 5 times to find the element with class "description__text"
         for _ in range(5):
+            driver = None
             try:
-                driver = webdriver.Chrome(options=options)
+                driver = configure_chrome_driver()
                 driver.get(url)
 
                 # Click the "Show more" button
@@ -29,7 +46,7 @@ def get_company_job_description_linkedin(url):
                 break 
 
             except Exception as e:
-                # print("Attempt failed:", e)
+                print("Attempt failed:", e)
                 pass
 
             finally:
@@ -51,14 +68,13 @@ def get_company_job_description_linkedin(url):
 
 def get_company_job_description_indeed(url):
     try:
-        options = Options()
-        options.headless = True
         job_description = None
 
-        # Try 3 times to find the element with class "jobsearch-jobDescriptionText"
+        # Try 5 times to find the element with id "jobDescriptionText"
         for _ in range(5):
+            driver = None
             try:
-                driver = webdriver.Chrome(options=options)
+                driver = configure_chrome_driver()
                 driver.get(url)
 
                 job_description_div = WebDriverWait(driver, 2).until(
@@ -83,30 +99,18 @@ def get_company_job_description_indeed(url):
     except Exception as e:
         print("An error occurred:", e)
         return None
-    
-# # Run if this is the main module
-# if __name__ == "__main__":
-#     # url = "https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&original_referer=https%3A%2F%2Fwww.linkedin.com%2F%3Ftrk%3Dguest_homepage-basic_nav-header-logo&currentJobId=3912685323&position=2&pageNum=0"
-#     # print(get_company_job_description_linkedin(url))
-
-#     url = "https://www.indeed.com/q-business-analyst-jobs.html?vjk=443cb2513ce0ebb7"
-#     print(get_company_job_description_indeed(url))
-
-
 
 def parse_url(url):
     if "linkedin.com" in url:
         if "linkedin.com/jobs/view/" in url:
             new_url = url
         else:
-
             job_id = url.split("currentJobId=")[1].split("&")[0]
             new_url = "https://www.linkedin.com/jobs/view/" + job_id
 
         return get_company_job_description_linkedin(new_url)
     
     elif "indeed.com" in url:
-
         if "indeed.com/viewjob?jk=" in url:
             new_url = url
         else:
@@ -116,8 +120,6 @@ def parse_url(url):
     else:
         print("Invalid URL. Please enter a LinkedIn job listing URL.")  
         return None
-    
-
 
 def get_job_description(url):
     job_description = parse_url(url)

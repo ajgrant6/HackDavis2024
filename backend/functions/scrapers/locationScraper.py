@@ -1,19 +1,36 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+def configure_chrome_driver():
+    options = Options()
+    options.headless = True  # Run Chrome in headless mode
+    options.add_argument("--no-sandbox")  # Bypass OS security model
+    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    options.add_argument("--disable-gpu")  # Applicable in headless mode, especially for environments without a GPU
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--remote-debugging-port=9222")  # Allow remote debugging if needed
+    options.add_argument("--start-maximized")  # Start maximized (helps avoid issues with rendering)
+    options.add_argument("--disable-software-rasterizer")  # Use CPU for rendering
+    options.add_argument("--window-size=1920,1080")  # Set window size to a reasonable default
+
+    # Initialize Chrome WebDriver
+    driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=options)
+    return driver
+
 def get_company_location_linkedin(url):
     try:
-        options = Options()
-        options.headless = True
         location = None
 
-        # Try 3 times to find the element with class "topcard__flavor--bullet"
+        # Try 5 times to find the element with class "topcard__flavor--bullet"
         for _ in range(5):
+            driver = None
             try:
-                driver = webdriver.Chrome(options=options)
+                driver = configure_chrome_driver()
                 driver.get(url)
 
                 location_span = WebDriverWait(driver, 2).until(
@@ -37,20 +54,16 @@ def get_company_location_linkedin(url):
     except Exception as e:
         print("An error occurred:", e)
         return None
-    
-
-
 
 def get_company_location_indeed(url):
     try:
-        options = Options()
-        options.headless = True
         location = None
 
         # Try 3 times to find the element with data-testid "job-location"
         for _ in range(3):
+            driver = None
             try:
-                driver = webdriver.Chrome(options=options)
+                driver = configure_chrome_driver()
                 driver.get(url)
 
                 # Try finding the location using data-testid "job-location"
@@ -85,22 +98,17 @@ def get_company_location_indeed(url):
         print("An error occurred:", e)
         return None
 
-
-
-
 def parse_url(url):
     if "linkedin.com" in url:
         if "linkedin.com/jobs/view/" in url:
             new_url = url
         else:
-
             job_id = url.split("currentJobId=")[1].split("&")[0]
             new_url = "https://www.linkedin.com/jobs/view/" + job_id
 
         return get_company_location_linkedin(new_url)
     
     elif "indeed.com" in url:
-
         if "indeed.com/viewjob?jk=" in url:
             new_url = url
         else:
@@ -111,36 +119,9 @@ def parse_url(url):
         print("Invalid URL. Please enter a LinkedIn job listing URL.")  
         return None
 
-
-# Example usage
-# url = "https://www.linkedin.com/jobs/view/3911217559"
-# company_location = get_company_location(url)
-# if company_location:
-#     print("Company location:", company_location)
-# else:
-#     print("Location information not found.")
-
-
-# indeed
-#linkedin
-#glassdoor
-# while True:
-#     url = input("Enter a job listing URL (or 'q' to quit): ")
-#     if url == 'q':
-#         break
-    
-#     company_location = parse_url(url)
-#     print(url)
-
-#     if company_location:
-#         print("Company location:", company_location)
-#     else:
-#         print("Location information not found.")
-
 def get_location(url):
     company_location = parse_url(url)
     if company_location:
         return company_location
     else:
         return "not found"
-
