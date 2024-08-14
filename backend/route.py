@@ -32,19 +32,15 @@ def extract_text_from_pdf(pdf_content):
         text += pdf_reader.pages[page_num].extract_text()
     return text
 
+@app.route("/health", methods=["GET"])
 @app.route("/", methods=["GET"])
-@app.route("/login", methods=["GET"])
-def index():
-
-#	if current_user.is_authenticated:
-#		return redirect(url_for("application"))
-	return render_template("index.html")
+def health():
+    return "Success",200
 
 
-
-@app.route("/resumetest", methods=["GET"])
-def resumetest():
-	return render_template("resumetest.html")
+# @app.route("/resumetest", methods=["GET"])
+# def resumetest():
+# 	return render_template("resumetest.html")
 
 #@app.route("/app", methods=["GET"])
 #@login_required

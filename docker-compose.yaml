@@ -3,6 +3,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: jobscoper-frontend:latest  # Tag for the frontend image
     ports:
       - "80:80"
     depends_on:
@@ -12,6 +13,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: jobscoper-backend:latest  # Tag for the backend image
     ports:
       - "5000:5000"
     env_file:
