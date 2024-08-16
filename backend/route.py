@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 import os
 import json
 from io import BytesIO
+import sys
 
 from flask_cors import CORS, cross_origin
 # Apply CORS to whole app or just one route
