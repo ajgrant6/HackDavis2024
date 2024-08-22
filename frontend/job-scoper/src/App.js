@@ -39,7 +39,7 @@ function App() {
   const handleSearch = async () => {
     setLoading(true); // Set loading to true when button is pressed
     try {
-      const url = `http://jobscoper.xyz/api/getInfo`;
+      const url = `https://jobscoper.xyz/api/getInfo`;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
