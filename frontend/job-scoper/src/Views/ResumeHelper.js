@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import axios from 'axios';
 
+// const url = "http://localhost:8080/api/";
+const url = 'https://jobscoper.xyz/api/';
+
 const ResumeHelper = (props) => {
     const [pdfAsText, setPdfAsText] = useState('');
     const [jobDescription, setJobDescription] = useState('');
@@ -14,7 +17,7 @@ const ResumeHelper = (props) => {
 
     const fetchJobDescription = async (link) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/getJobDescription', { link });
+            const response = await axios.post(url + 'getJobDescription', { link });
             if (response.data.job_description) {
                 setJobDescription(response.data.job_description);
             } else {
@@ -33,7 +36,7 @@ const ResumeHelper = (props) => {
         formData.append('file', file);
 
         try {
-            const response = await axios.post('http://localhost:8080/api/upload', formData, {
+            const response = await axios.post(url + 'upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -52,7 +55,7 @@ const ResumeHelper = (props) => {
     const compareResumes = async () => {
         setLoading(true); // Set loading to true when the button is clicked
         try {
-            const response = await axios.post('http://localhost:8080/api/compareResume', {
+            const response = await axios.post(url + 'compareResume', {
                 resume_text: pdfAsText,
                 job_description: jobDescription
             });
