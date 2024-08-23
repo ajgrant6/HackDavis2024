@@ -5,6 +5,7 @@ import WomansRights from './Views/WomansRights';
 import LGBTRights from './Views/LGBTRights';
 import ResumeHelper from './Views/ResumeHelper';
 import MapContainer from './Views/MapContainer';
+import HowTo from './Views/HowTo';
 
 
 function App() {
@@ -84,7 +85,7 @@ function App() {
         <h1>Job Scoper 🏢🤔</h1>
         <p>Find the best city for you to live and work in</p>
         <div className="SearchField">
-          <input type="text" size="40" placeholder="Place a LinkedIn or Indeed Job Posting Here"
+          <input type="text" size="40" placeholder="3. Place a LinkedIn job URL here"
                  value={inputValue} onChange={handleInputChange} onKeyPress={(event) => event.key === 'Enter' && handleSearch()} style={{borderRadius: '5px', fontSize: '18px', paddingRight: '5px'}} />
           <div className="Spacer"/>
           <button onClick={handleSearch} style={{borderRadius: '5px', fontSize: '18px', padding: '2px 5px'}}>Search</button>
@@ -94,6 +95,12 @@ function App() {
       {/* Show loading message while loading */}
       {loading && <img src={require('./loading.gif')} alt="Loading..." />}
 
+      {/* How to when no data has been fetched */}
+      {!dataFetched && !loading && (
+        <HowTo />
+      )}
+
+      {/* Once loaded, show information */}
       {dataFetched && !loading && (
         <div>
           <div className="Features">

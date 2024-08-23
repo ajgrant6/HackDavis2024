@@ -111,7 +111,6 @@
   min-height: 300px;
   text-align: left;
   line-height: 1.2;
-  
 }
 
 .JobDescriptionText
@@ -166,4 +165,24 @@
 .ZeroPaddingMargin {
   padding: 0px;
   margin: 0px;
+}
+
+.howto-container {
+  background-color: #f1f1f1;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+.howto-image {
+  width: 100%; /* Ensures the image takes up the full width of the container */
+  height: auto; /* Maintains the aspect ratio of the image */
+  border-radius: 8px; /* Rounds the image corners */
+  display: block; /* Removes bottom margin caused by inline-block */
+  max-width: 100%; /* Ensures the image does not overflow the container */
 }
